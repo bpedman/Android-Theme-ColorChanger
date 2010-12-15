@@ -36,8 +36,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
-import org.jf.testsign.TestSign;
-
 public class ColorChange {
 
 	/**
@@ -51,7 +49,7 @@ public class ColorChange {
 	public final static boolean debug = false;
 
 	public static void main(String[] args) {
-		System.out.println("\n************************************\n**  Color Changer " + VERSION + " by Ohsaka/Faux  **\n************************************\n");
+		System.out.println("\n************************************\n**  Color Changer " + VERSION + " by Ohsaka/Faux/bpedman  **\n************************************\n");
 
 
 		if (args.length < 2 || args.length > 10) {
@@ -193,18 +191,13 @@ public class ColorChange {
 			System.out.println("Error unzipping file :(");
 			return;
 		}
-
-		// make sure its not a full ROM
-		File bootFile = new File(TEMPDIR + SLASH + "boot.img");
-		if (bootFile.exists()) {
-			System.out.println("Error: this appears to be a full ROM update, not a theme update");
-			return;
-		}
+		
+		//TODO: Make sure the .zip file has not already been generated...otherwise it could cause problems
 
 		// don't bother unzipping services unless it needs to be changed
 		if (servicesChanged) {
 			// check for services.jar
-			File servicesFile = new File(TEMPDIR + SLASH + "framework" + SLASH + "services.jar");
+			File servicesFile = new File(TEMPDIR + SLASH + "system" + SLASH + "framework" + SLASH + "services.jar");
 			if (!servicesFile.exists()) {
 				System.out.println("Error: didn't find services.jar");
 				return;
@@ -220,7 +213,7 @@ public class ColorChange {
 		// changed
 		if (tickerChanged) {
 			// check for framework-res.apk
-			File frameworkFile = new File(TEMPDIR + SLASH + "framework" + SLASH + "framework-res.apk");
+			File frameworkFile = new File(TEMPDIR + SLASH + "system" + SLASH + "framework" + SLASH + "framework-res.apk");
 			if (!frameworkFile.exists()) {
 				System.out.println("Error: didn't find framework-res.apk");
 				return;
@@ -235,13 +228,7 @@ public class ColorChange {
 		// zip new update file back up
 		zip(updateFile, tempDir, true);
 
-		// Resign the update file
-		TestSign.main(new String[] { getFileNameWithoutExtension(updateFile
-				.getAbsolutePath())
-				+ "-new.zip" });
-		System.out.println("Finished resigning update file\n");
-
-		System.out.println("\nAutomagic complete! Enjoy.  -- Ohsaka");
+		System.out.println("\nAutomagic complete! Enjoy.  -- Ohsaka (and bpedman)");
 	}
 
 	private static void modifyServicesColor(File servicesFile, String clockColor, String dateColor, String ongoingColor, String latestColor, String noNotifsColor, String clearButTextColor, String networkNameColor, String roamingColor) {
@@ -355,7 +342,7 @@ public class ColorChange {
 					modifySingleColorSection(bufRead, bufWrite, noNotifsColor);
 				}
 				// clear button text color
-				if (line.contains(".line 282")) {
+				if (line.contains(".line 283")) {
 					System.out.println("found line: " + line);
 					bufWrite.write(line + NL);
 					modifySingleColorSection(bufRead, bufWrite, clearButTextColor);
