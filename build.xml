@@ -19,8 +19,8 @@
         <fatjar.build output="colorchange.jar">
             <fatjar.manifest mainclass="com.ohsaka.ColorChange"/>
             <fatjar.filesource path="${basedir}/bin" relpath=""/>
-            <fatjar.jarsource file="${basedir}/baksmali-0.93.jar" relpath=""/>
-            <fatjar.jarsource file="${basedir}/smali-0.92.jar" relpath=""/>
+            <fatjar.jarsource file="${basedir}/baksmali-1.2.2.jar" relpath=""/>
+            <fatjar.jarsource file="${basedir}/smali-1.2.2.jar" relpath=""/>
         </fatjar.build>
     </target>
 </project>
