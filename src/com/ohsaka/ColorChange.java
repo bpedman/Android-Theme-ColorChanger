@@ -410,7 +410,7 @@ public class ColorChange {
 		// Lcom/android/server/status/ExpandedView;->findViewById(I)Landroid/view/View;
 		if (!line.contains("invoke-virtual {v1, v7}, Lcom/android/server/status/ExpandedView;->findViewById(I)Landroid/view/View")) {
 			// sanity check
-			System.out.println("PANIC: skipped line was not what is expected!\nPlease report this to Ohsaka on xda-developers forum.");
+			System.out.println("PANIC: skipped line was not what is expected!\nPlease report this to bpedman on sdx-developers forum.");
 			System.out.println("line=" + line);
 			line = bufRead.readLine();
 			System.out.println("line=" + line);
